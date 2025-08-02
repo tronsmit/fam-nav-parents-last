@@ -1,30 +1,33 @@
 <?php
 
 use Fisharebest\Webtrees\Individual;
+use Fisharebest\Webtrees\Services\RelationshipService;
+
 
 /**
- * @var Individual $individual
+ * @var Individual          $individual
+ * @var RelationshipService $relationship_service
  */
 
 ?>
 <div class="wt-sidebar-content wt-sidebar-family-navigator">
     <!-- spouse and children -->
     <?php foreach ($individual->spouseFamilies() as $family) : ?>
-        <?= view('modules/family_nav/sidebar-family', ['individual' => $individual, 'family' => $family, 'title' => $individual->getspouseFamilyLabel($family)]) ?>
+        <?= view('modules/family_nav/sidebar-family', ['individual' => $individual, 'family' => $family, 'title' => $individual->getspouseFamilyLabel($family), 'relationship_service' => $relationship_service]) ?>
     <?php endforeach ?>
 
     <!-- step children -->
     <?php foreach ($individual->spouseStepFamilies() as $family) : ?>
-        <?= view('modules/family_nav/sidebar-family', ['individual' => $individual, 'family' => $family, 'title' => $family->fullName()]) ?>
+        <?= view('modules/family_nav/sidebar-family', ['individual' => $individual, 'family' => $family, 'title' => $family->fullName(), 'relationship_service' => $relationship_service]) ?>
     <?php endforeach ?>
 
     <!-- parent families -->
     <?php foreach ($individual->childFamilies() as $family) : ?>
-        <?= view('modules/family_nav/sidebar-family', ['individual' => $individual, 'family' => $family, 'title' => $individual->getChildFamilyLabel($family)]) ?>
+        <?= view('modules/family_nav/sidebar-family', ['individual' => $individual, 'family' => $family, 'title' => $individual->getChildFamilyLabel($family), 'relationship_service' => $relationship_service]) ?>
     <?php endforeach ?>
 
     <!-- step parents -->
     <?php foreach ($individual->childStepFamilies() as $family) : ?>
-        <?= view('modules/family_nav/sidebar-family', ['individual' => $individual, 'family' => $family, 'title' => $individual->getStepFamilyLabel($family)]) ?>
+        <?= view('modules/family_nav/sidebar-family', ['individual' => $individual, 'family' => $family, 'title' => $individual->getStepFamilyLabel($family), 'relationship_service' => $relationship_service]) ?>
     <?php endforeach ?>
 </div>
